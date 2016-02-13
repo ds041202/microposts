@@ -29,6 +29,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       redirect_to @user #user#showへリダイレクトする処理です。TOPページへリダイレクトするときはredirect_to root_url
+    else 
+      redirect_to edit_user_path(current_user)
     end
   end
 
