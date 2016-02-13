@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   
   def show
    @user = User.find(params[:id])
+   @microposts = @user.microposts.order(created_at: :desc)
   end
   
   def new
@@ -27,7 +28,8 @@ class UsersController < ApplicationController
     
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(user_params) and
+      current_user == @user
       redirect_to @user #user#showへリダイレクトする処理です。TOPページへリダイレクトするときはredirect_to root_url
     else 
       redirect_to edit_user_path(current_user)
